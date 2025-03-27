@@ -3,8 +3,8 @@
 
 #' ---
 #' title: "Text mining: model Bag of Words"
-#' author: ""
-#' date: ""
+#' author: "Michal Potasinski"
+#' date: "27.03"
 #' output:
 #'    html_document:
 #'      df_print: paged
