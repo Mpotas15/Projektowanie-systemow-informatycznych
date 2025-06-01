@@ -44,8 +44,8 @@ library(SentimentAnalysis)
 #' # Dane tekstowe dla KFC
 # Dane tekstowe ----
 
-dataMCD <- read.csv("KFC reviews.csv", stringsAsFactors = FALSE, encoding = "UTF-8")
-corpusKFC <- VCorpus(VectorSource(dataMCD$text))
+dataKFC <- read.csv("KFC reviews.csv", stringsAsFactors = FALSE, encoding = "UTF-8")
+corpusKFC <- VCorpus(VectorSource(dataKFC$text))
 
 
 
@@ -68,7 +68,7 @@ sentiment <- analyzeSentiment(corpusKFC)
 
 
 # Wczytaj słownik GI
-dataMCD(DictionaryGI)
+data(DictionaryGI)
 summary(DictionaryGI)
 
 
@@ -84,7 +84,7 @@ plot(sentimentGI)
 
 # Ten sam wykres w ggplot2:
 # Konwersja do ramki danych (ggplot wizualizuje ramki danych)
-df_GI <- dataMCD.frame(index = seq_along(sentimentGI), value = sentimentGI, Dictionary = "GI")
+df_GI <- data.frame(index = seq_along(sentimentGI), value = sentimentGI, Dictionary = "GI")
 
 # Usunięcie wierszy, które zawierają NA
 df_GI <- na.omit(df_GI)
@@ -109,7 +109,7 @@ ggplot(df_GI, aes(x = value)) +
 
 
 # Wczytaj słownik HE
-dataMCD(DictionaryHE)
+data(DictionaryHE)
 summary(DictionaryHE)
 
 
@@ -125,7 +125,7 @@ plot(sentimentHE)
 
 # Ten sam wykres w ggplot2:
 # Konwersja do ramki danych (ggplot wizualizuje ramki danych)
-df_HE <- dataMCD.frame(index = seq_along(sentimentHE), value = sentimentHE, Dictionary = "HE")
+df_HE <- data.frame(index = seq_along(sentimentHE), value = sentimentHE, Dictionary = "HE")
 
 # Usunięcie wierszy, które zawierają NA
 df_HE <- na.omit(df_HE)
@@ -148,7 +148,7 @@ ggplot(df_HE, aes(x = value)) +
 
 
 # Wczytaj słownik LM
-dataMCD(DictionaryLM)
+data(DictionaryLM)
 summary(DictionaryLM)
 
 
@@ -164,7 +164,7 @@ plot(sentimentLM)
 
 # Ten sam wykres w ggplot2:
 # Konwersja do ramki danych (ggplot wizualizuje ramki danych)
-df_LM <- dataMCD.frame(index = seq_along(sentimentLM), value = sentimentLM, Dictionary = "LM")
+df_LM <- data.frame(index = seq_along(sentimentLM), value = sentimentLM, Dictionary = "LM")
 
 # Usunięcie wierszy, które zawierają NA
 df_LM <- na.omit(df_LM)
@@ -202,7 +202,7 @@ plot(sentimentQDAP)
 
 # Ten sam wykres w ggplot2:
 # Konwersja do ramki danych (ggplot wizualizuje ramki danych)
-df_QDAP <- dataMCD.frame(index = seq_along(sentimentQDAP), value = sentimentQDAP, Dictionary = "QDAP")
+df_QDAP <- data.frame(index = seq_along(sentimentQDAP), value = sentimentQDAP, Dictionary = "QDAP")
 
 # Usunięcie wierszy, które zawierają NA
 df_QDAP <- na.omit(df_QDAP)
@@ -253,7 +253,7 @@ length(sentiment[,1])
 
 
 # Utworzenie ramki danych
-df_all <- dataMCD.frame(sentence=1:length(sentiment[,1]),
+df_all <- data.frame(sentence=1:length(sentiment[,1]),
                      GI=sentiment$SentimentGI, 
                      HE=sentiment$SentimentHE, 
                      LM=sentiment$SentimentLM,
@@ -309,9 +309,9 @@ ggplot(df_all, aes(x=sentence, y=QDAP)) +
 
 
 # Korpus - zawartość przykładowego elementu
-corpusKFCKFC[[1]]
-corpusKFCKFC[[1]][[1]]
-corpusKFCKFC[[1]][2]
+corpusKFC[[1]]
+corpusKFC[[1]][[1]]
+corpusKFC[[1]][2]
 
 
 
@@ -323,7 +323,7 @@ corpusKFCKFC[[1]][2]
 # Normalizacja i usunięcie zbędnych znaków ----
 
 # Zapewnienie kodowania w całym korpusie
-corpusKFC <- tm_map(corpusKFC content_transformer(function(x) iconv(x, to = "UTF-8", sub = "byte")))
+corpusKFC <- tm_map(corpusKFC, content_transformer(function(x) iconv(x, to = "UTF-8", sub = "byte")))
 
 
 # Funkcja do zamiany znaków na spację
@@ -413,7 +413,7 @@ tdm_m <- as.matrix(tdm)
 
 # Zlicz same częstości słów w macierzach
 v <- sort(rowSums(tdm_m), decreasing = TRUE)
-tdm_df <- dataMCD.frame(word = names(v), freq = v)
+tdm_df <- data.frame(word = names(v), freq = v)
 head(tdm_df, 10)
 
 
@@ -473,7 +473,7 @@ assoc_sorted <- sort(assoc_vector, decreasing = TRUE)
 
 
 # Ramka danych
-assoc_df <- dataMCD.frame(
+assoc_df <- data.frame(
   word = factor(names(assoc_sorted), levels = names(assoc_sorted)[order(assoc_sorted)]),
   score = assoc_sorted
 )
@@ -539,7 +539,7 @@ assoc_sorted <- sort(assoc_vector, decreasing = TRUE)
 
 
 # Ramka danych
-assoc_df <- dataMCD.frame(
+assoc_df <- data.frame(
   word = factor(names(assoc_sorted), levels = names(assoc_sorted)[order(assoc_sorted)]),
   score = assoc_sorted
 )
@@ -605,7 +605,7 @@ assoc_sorted <- sort(assoc_vector, decreasing = TRUE)
 
 
 # Ramka danych
-assoc_df <- dataMCD.frame(
+assoc_df <- data.frame(
   word = factor(names(assoc_sorted), levels = names(assoc_sorted)[order(assoc_sorted)]),
   score = assoc_sorted
 )
