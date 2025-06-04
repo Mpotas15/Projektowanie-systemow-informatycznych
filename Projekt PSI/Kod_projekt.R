@@ -4,7 +4,7 @@
 #' ---
 #' title: "Projekt PSI - Porównanie opinii KFC oraz MC Donald w Nowym Yorku"
 #' author: "Michał Potasiński oraz Kacper Buchalik"
-#' date:   " "
+#' date:   "04.06.2025"
 #' output:
 #'   html_document:
 #'     df_print: paged
@@ -51,7 +51,7 @@ corpusKFC <- VCorpus(VectorSource(dataKFC$text))
 
 
 
-# Analiza sentymentu w czasie dla opinii KFC----
+#' # Analiza sentymentu w czasie dla opinii KFC----
 
 
 
@@ -218,13 +218,6 @@ ggplot(df_QDAP, aes(x = value)) +
 
 # Porównanie sentymentu na podstawie różnych słowników ----
 
-# Minimalistycznie
-# plot(convertToDirection(sentiment$SentimentGI))
-# plot(convertToDirection(sentiment$SentimentHE))
-# plot(convertToDirection(sentiment$SentimentLM))
-# plot(convertToDirection(sentiment$SentimentQDAP))
-
-
 # Wizualnie lepsze w ggplot2
 # Połączenie poszczególnych ramek w jedną ramkę
 df_all <- bind_rows(df_GI, df_HE, df_LM, df_QDAP)
@@ -383,17 +376,6 @@ corpusKFC <- tm_map(corpusKFC, stripWhitespace)
 # Sprawdzenie
 corpusKFC[[1]][[1]]
 
-
-
-# Decyzja dotycząca korpusu ----
-# do dalszej analizy użyj:
-#
-# - corpusKFC (oryginalny, bez stemmingu)
-#
-
-
-
-
 #' # Tokenizacja
 # Tokenizacja ----
 
@@ -430,20 +412,6 @@ wordcloud(words = tdm_df$word, freq = tdm_df$freq, min.freq = 7,
 
 # Wyświetl top 10
 print(head(tdm_df, 10))
-
-
-
-#' # 4. Inżynieria cech w modelu Bag of Words:
-#' # Reprezentacja słów i dokumentów w przestrzeni wektorowej
-# 4. Inżynieria cech w modelu Bag of Words: ----
-# Reprezentacja słów i dokumentów w przestrzeni wektorowej ----
-# (Feature Engineering in vector-space BoW model)
-
-# - podejście surowych częstości słów
-# (częstość słowa = liczba wystąpień w dokumencie)
-# (Raw Word Counts)
-
-
 
 #' # Asocjacje - znajdowanie współwystępujących słów
 # Asocjacje - znajdowanie współwystępujących słów ----
@@ -668,10 +636,7 @@ dataMCD <- read.csv("MCD reviews.csv", stringsAsFactors = FALSE, encoding = "UTF
 corpusMCD <- VCorpus(VectorSource(dataMCD$text))
 
 
-
-
-
-# Analiza sentymentu w czasie dla opinii KFC----
+#' # Analiza sentymentu w czasie dla opinii MCD----
 
 
 
@@ -838,12 +803,6 @@ ggplot(df_QDAP, aes(x = value)) +
 
 # Porównanie sentymentu na podstawie różnych słowników ----
 
-# Minimalistycznie
-# plot(convertToDirection(sentiment$SentimentGI))
-# plot(convertToDirection(sentiment$SentimentHE))
-# plot(convertToDirection(sentiment$SentimentLM))
-# plot(convertToDirection(sentiment$SentimentQDAP))
-
 
 # Wizualnie lepsze w ggplot2
 # Połączenie poszczególnych ramek w jedną ramkę
@@ -1009,16 +968,6 @@ corpusMCD <- tm_map(corpusMCD, stripWhitespace)
 corpusMCD[[1]][[1]]
 
 
-
-# Decyzja dotycząca korpusu ----
-# do dalszej analizy użyj:
-#
-# - corpusMCD (oryginalny, bez stemmingu)
-#
-
-
-
-
 #' # Tokenizacja
 # Tokenizacja ----
 
@@ -1055,20 +1004,6 @@ wordcloud(words = tdm_df$word, freq = tdm_df$freq, min.freq = 7,
 
 # Wyświetl top 10
 print(head(tdm_df, 10))
-
-
-
-#' # 4. Inżynieria cech w modelu Bag of Words:
-#' # Reprezentacja słów i dokumentów w przestrzeni wektorowej
-# 4. Inżynieria cech w modelu Bag of Words: ----
-# Reprezentacja słów i dokumentów w przestrzeni wektorowej ----
-# (Feature Engineering in vector-space BoW model)
-
-# - podejście surowych częstości słów
-# (częstość słowa = liczba wystąpień w dokumencie)
-# (Raw Word Counts)
-
-
 
 #' # Asocjacje - znajdowanie współwystępujących słów
 # Asocjacje - znajdowanie współwystępujących słów ----
@@ -1283,3 +1218,9 @@ ggplot(assoc_df, aes(x = score, y = reorder(word, score), color = score)) +
     axis.title.y = element_text(margin = margin(r = 10)),
     legend.position = "right"
   )
+
+
+
+
+
+
